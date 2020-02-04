@@ -16,11 +16,24 @@ public class Main {
             bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             bufferedReader = new BufferedReader(new FileReader(file));
 
-            init(file, bufferedReader, bufferedWriter);
+            int currentEmployeeCount = init(file, bufferedReader);
+            System.out.println(currentEmployeeCount);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+                if (bufferedWriter != null) {
+                    bufferedWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -36,35 +49,39 @@ public class Main {
 //        insertEmployee();
     }
 
-    public static void init(File file, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+    public static int init(File file, BufferedReader bufferedReader) {
         int employeeCount = 0;
         try {
             employeeCount = Optional.ofNullable(bufferedReader.readLine())
-                    .map(Integer::parseInt)
+                    .map(s -> {
+                        int result = 0;
+                        try {
+                            result = Integer.parseInt(s);
+                        } catch (NumberFormatException e) {
+                            System.out.println("인원 수가 입력되어있지 않음.");
+                            return null;
+                        }
+                        return result;
+                    })
                     .orElseGet(() -> {
                         try {
-                            bufferedWriter.write("0");
-                            bufferedWriter.flush();
+                            FileWriter fileWriter = new FileWriter(file);
+                            fileWriter.write("0\r\n");
+                            fileWriter.flush();
+                            fileWriter.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         return 0;
                     });
 
-            System.out.println(employeeCount);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                bufferedReader.close();
-                bufferedWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+
+        return employeeCount;
     }
 
     public static void insertEmployee() {

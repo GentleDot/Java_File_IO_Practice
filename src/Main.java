@@ -14,15 +14,20 @@ public class Main {
         File file = new File(PATH.getPath(), FILE_NAME);
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
+        FileReader fileReader = null;
+        FileWriter fileWriter = null;
 
         try {
             /*
-            * https://qkrrudtjr954.github.io/java/2017/11/13/file-write.html
-            * BufferedWriter : 한 줄씩 처리, 8192 bytes 이하 크기의 쓰기, 여러 곳에서 쓰기가 이뤄지는 경우라면 효과적일 것임.
-            * */
-            bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedReader = new BufferedReader(new FileReader(file));
+             * https://qkrrudtjr954.github.io/java/2017/11/13/file-write.html
+             * BufferedWriter : 한 줄씩 처리, 8192 bytes 이하 크기의 쓰기, 여러 곳에서 쓰기가 이뤄지는 경우라면 효과적일 것임.
+             * */
+            fileWriter = new FileWriter(file, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
 
+            bufferedReader.mark(8192);
             while (bolRunProgram) {
                 int currentEmployeeCount = (int) bufferedReader.lines().count();
                 System.out.println(currentEmployeeCount);
@@ -47,9 +52,11 @@ public class Main {
                         break;
                     case "2":
                         System.out.println("직원 리스트");
+                        printEmployeeList(bufferedReader);
                         break;
                     case "3":
                         System.out.println("직원 상세 정보");
+                        printEmployeeDetailList(bufferedReader);
                         break;
                     case "4":
                         System.out.println("직원 정보 수정");
@@ -68,9 +75,11 @@ public class Main {
         } finally {
             try {
                 if (bufferedReader != null) {
+                    fileReader.close();
                     bufferedReader.close();
                 }
                 if (bufferedWriter != null) {
+                    fileWriter.close();
                     bufferedWriter.close();
                 }
             } catch (IOException e) {
@@ -147,6 +156,47 @@ public class Main {
             writer.write(newEmployee);
             writer.flush();
             System.out.println("입력 완료.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printEmployeeList(BufferedReader reader) {
+        System.out.println("직원번호        이름");
+        System.out.println("====================");
+
+        try {
+            reader.reset();
+            reader.lines().forEach(s -> {
+                String[] line = s.split(",");
+                System.out.println(line[0] + "      " + line[1]);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printEmployeeDetailList(BufferedReader reader) {
+        System.out.println("직원번호        이름            전화번호            직급            이메일");
+        System.out.println("==========================================================================");
+
+        try {
+            reader.reset();
+            reader.lines().forEach(s -> {
+                String[] line = s.split(",");
+                System.out.println(new StringBuffer()
+                        .append(line[0])
+                        .append("            ")
+                        .append(line[1])
+                        .append("        ")
+                        .append(line[2])
+                        .append("        ")
+                        .append(line[3])
+                        .append("        ")
+                        .append(line[4])
+                        .toString());
+
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

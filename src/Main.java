@@ -1,6 +1,8 @@
 import java.io.*;
 import java.net.URL;
-import java.util.*;
+import java.util.Scanner;
+
+import static java.util.regex.Pattern.matches;
 
 public class Main {
     private static URL PATH = Main.class.getResource("");
@@ -14,13 +16,17 @@ public class Main {
         BufferedWriter bufferedWriter = null;
 
         try {
+            /*
+            * https://qkrrudtjr954.github.io/java/2017/11/13/file-write.html
+            * BufferedWriter : 한 줄씩 처리, 8192 bytes 이하 크기의 쓰기, 여러 곳에서 쓰기가 이뤄지는 경우라면 효과적일 것임.
+            * */
             bufferedWriter = new BufferedWriter(new FileWriter(file, true));
             bufferedReader = new BufferedReader(new FileReader(file));
 
-            int currentEmployeeCount = init(file, bufferedReader);
-            System.out.println(currentEmployeeCount);
-
             while (bolRunProgram) {
+                int currentEmployeeCount = (int) bufferedReader.lines().count();
+                System.out.println(currentEmployeeCount);
+
                 System.out.println("0. 종료");
                 System.out.println("1. 직원 정보 입력");
                 System.out.println("2. 직원 리스트");
@@ -37,6 +43,7 @@ public class Main {
                         break;
                     case "1":
                         System.out.println("직원 정보 입력");
+                        insertEmployee(scanner, bufferedWriter, (currentEmployeeCount - 1));
                         break;
                     case "2":
                         System.out.println("직원 리스트");
@@ -71,68 +78,77 @@ public class Main {
             }
         }
 
-
-//        insertEmployee();
     }
 
-    public static int init(File file, BufferedReader bufferedReader) {
-        int employeeCount = 0;
-        try {
-            employeeCount = Optional.ofNullable(bufferedReader.readLine())
-                    .map(s -> {
-                        int result = 0;
-                        try {
-                            result = Integer.parseInt(s);
-                        } catch (NumberFormatException e) {
-                            System.out.println("인원 수가 입력되어있지 않음.");
-                            return null;
-                        }
-                        return result;
-                    })
-                    .orElseGet(() -> {
-                        try {
-                            FileWriter fileWriter = new FileWriter(file);
-                            fileWriter.write("0\r\n");
-                            fileWriter.flush();
-                            fileWriter.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return 0;
-                    });
+    public static void insertEmployee(Scanner scanner, BufferedWriter writer, int employeeCount) {
+        String name;
+        String phoneNumber = "";
+        String ranks;
+        String email = "";
+        boolean inputPhoneRetryFlag = true;
+        boolean inputEmailRetryFlag = true;
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        System.out.println("====== 직원 정보 입력 (exit 입력 시 종료) ======");
+
+        System.out.print("이름 : ");
+        name = scanner.nextLine();
+        if (name.equals("exit")) {
+            return;
+        }
+
+        while (inputPhoneRetryFlag) {
+            System.out.print("전화번호 : ");
+            phoneNumber = scanner.nextLine();
+
+            if (phoneNumber.equals("exit")) {
+                return;
+            } else if (!matches("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$", phoneNumber)) {
+                System.out.println("유효하지 않은 전화번호 입력! 다시 입력해주세요. ex) 010-1234-5678");
+                continue;
+            }
+            inputPhoneRetryFlag = false;
+        }
+
+        System.out.print("직급 : ");
+        ranks = scanner.nextLine();
+        if (ranks.equals("exit")) {
+            return;
+        }
+
+        while (inputEmailRetryFlag) {
+            System.out.print("이메일 : ");
+            email = scanner.nextLine();
+
+            if (email.equals("exit")) {
+                return;
+            } else if (!matches("^[\\d\\w-_.]+@[\\d\\w]+[.][\\w]{2,4}$", email)) {
+                System.out.println("유효하지 않은 이메일 입력! 다시 입력해주세요. ex) email@email.com");
+                continue;
+            }
+            inputEmailRetryFlag = false;
+        }
+
+        String newEmployee = new StringBuffer()
+                .append(String.format("%03d", employeeCount + 1))
+                .append(",")
+                .append(name)
+                .append(",")
+                .append(phoneNumber)
+                .append(",")
+                .append(ranks)
+                .append(",")
+                .append(email)
+                .append(",")
+                .append("직원")
+                .append("\r\n")
+                .toString();
+
+        try {
+            writer.write(newEmployee);
+            writer.flush();
+            System.out.println("입력 완료.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return employeeCount;
-    }
-
-    public static void insertEmployee() {
-        BufferedOutputStream outputStream = null;
-        List<String> list = new ArrayList();
-        /*try {
-
-
-//
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-//            System.out.println("이름 : ");
-//            String name = scanner.nextLine();
-//            System.out.println("전화번호 : ");
-//            String phoneNumber = scanner.nextLine();
-//            System.out.println("직급 : ");
-//            String ranks = scanner.nextLine();
-//            System.out.println("이메일 : ");
-//            String email = scanner.nextLine();
-//
-//
-//            System.out.println("작업 완료!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-
-        }*/
     }
 }

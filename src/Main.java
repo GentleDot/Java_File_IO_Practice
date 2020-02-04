@@ -7,6 +7,7 @@ public class Main {
     private static String FILE_NAME = "employee_list.txt";
 
     public static void main(String[] args) {
+        boolean bolRunProgram = true;
         Scanner scanner = new Scanner(System.in);
         File file = new File(PATH.getPath(), FILE_NAME);
         BufferedReader bufferedReader = null;
@@ -18,6 +19,40 @@ public class Main {
 
             int currentEmployeeCount = init(file, bufferedReader);
             System.out.println(currentEmployeeCount);
+
+            while (bolRunProgram) {
+                System.out.println("0. 종료");
+                System.out.println("1. 직원 정보 입력");
+                System.out.println("2. 직원 리스트");
+                System.out.println("3. 직원 상세 정보 출력");
+                System.out.println("4. 직원 정보 수정");
+                System.out.println("5. 직원 정보 삭제");
+
+                System.out.print("        메뉴 선택 : ");
+                String menuSelect = scanner.nextLine();
+
+                switch (menuSelect) {
+                    case "0":
+                        bolRunProgram = false;
+                        break;
+                    case "1":
+                        System.out.println("직원 정보 입력");
+                        break;
+                    case "2":
+                        System.out.println("직원 리스트");
+                        break;
+                    case "3":
+                        System.out.println("직원 상세 정보");
+                        break;
+                    case "4":
+                        System.out.println("직원 정보 수정");
+                        break;
+                    case "5":
+                        System.out.println("직원 정보 삭제");
+                        break;
+                }
+
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -37,15 +72,6 @@ public class Main {
         }
 
 
-        /*System.out.println("0. 종료");
-        System.out.println("1. 직원 정보 입력");
-        System.out.println("2. 직원 리스트");
-        System.out.println("3. 직원 상세 정보 출력");
-        System.out.println("4. 직원 정보 수정");
-        System.out.println("5. 직원 정보 삭제");
-
-        System.out.println("        메뉴 선택 : ");
-        String menuSelect = scanner.nextLine();*/
 //        insertEmployee();
     }
 

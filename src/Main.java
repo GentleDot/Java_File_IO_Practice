@@ -169,7 +169,9 @@ public class Main {
             reader.reset();
             reader.lines().forEach(s -> {
                 String[] line = s.split(",");
-                System.out.println(line[0] + "      " + line[1]);
+                if (line[5] == "직원") {
+                    System.out.println(line[0] + "      " + line[1]);
+                }
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -184,18 +186,19 @@ public class Main {
             reader.reset();
             reader.lines().forEach(s -> {
                 String[] line = s.split(",");
-                System.out.println(new StringBuffer()
-                        .append(line[0])
-                        .append("            ")
-                        .append(line[1])
-                        .append("        ")
-                        .append(line[2])
-                        .append("        ")
-                        .append(line[3])
-                        .append("        ")
-                        .append(line[4])
-                        .toString());
-
+                if (line[5] == "직원") {
+                    System.out.println(new StringBuffer()
+                            .append(line[0])
+                            .append("            ")
+                            .append(line[1])
+                            .append("        ")
+                            .append(line[2])
+                            .append("        ")
+                            .append(line[3])
+                            .append("        ")
+                            .append(line[4])
+                            .toString());
+                }
             });
         } catch (IOException e) {
             e.printStackTrace();

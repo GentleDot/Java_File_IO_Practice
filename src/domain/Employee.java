@@ -7,14 +7,14 @@ import static common.ParamCheckUtil.patternCheck;
 
 public class Employee {
     private final String seq;
-    private String name;
-    private String phoneNumber;
-    private String ranks;
-    private String email;
+    private final String name;
+    private final String phoneNumber;
+    private final String ranks;
+    private final String email;
     private EmployeeStatus status;
 
     public Employee(String seq) {
-        this(seq, null, "010-1234-5678", null, "default@email.com", EmployeeStatus.MEMBER);
+        this(seq, "default", "010-1234-5678", "사원", "default@email.com", EmployeeStatus.MEMBER);
     }
 
     public Employee(String seq, String name, String phoneNumber, String ranks, String email, EmployeeStatus status) {
@@ -55,6 +55,10 @@ public class Employee {
 
     public EmployeeStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(EmployeeStatus status) {
+        this.status = status;
     }
 
     @Override

@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2eaeabfa-78ac-4d73-9034-9f6cac98b591" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/employeeManagement/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employeeManagement/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/employeeManagement/domain/Employee$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employeeManagement/domain/Employee$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/employeeManagement/domain/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employeeManagement/domain/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/employeeManagement/employee_list.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/employeeManagement/service/EmployeeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/employeeManagement/service/EmployeeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/EmployeeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +79,8 @@
       <option name="presentableId" value="Default" />
       <updated>1580743796284</updated>
       <workItem from="1580743799984" duration="53396000" />
-      <workItem from="1581324147015" duration="22008000" />
+      <workItem from="1581324147015" duration="24765000" />
+      <workItem from="1581628186625" duration="3824000" />
     </task>
     <servers />
   </component>
@@ -110,26 +104,26 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="1028" y="277" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1580920959354" />
-    <state width="1087" height="265" key="GridCell.Tab.0.bottom" timestamp="1581392157184">
+    <state width="1087" height="265" key="GridCell.Tab.0.bottom" timestamp="1581393039963">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1171" height="265" key="GridCell.Tab.0.bottom/-1920.0.1920.1050/-1920.1080.1097.617/0.0.1920.1050@0.0.1920.1050" timestamp="1580750354878" />
-    <state width="1087" height="265" key="GridCell.Tab.0.bottom/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581392157184" />
-    <state width="1087" height="265" key="GridCell.Tab.0.center" timestamp="1581392157184">
+    <state width="1087" height="265" key="GridCell.Tab.0.bottom/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581393039963" />
+    <state width="1087" height="265" key="GridCell.Tab.0.center" timestamp="1581393039963">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1171" height="265" key="GridCell.Tab.0.center/-1920.0.1920.1050/-1920.1080.1097.617/0.0.1920.1050@0.0.1920.1050" timestamp="1580750354878" />
-    <state width="1087" height="265" key="GridCell.Tab.0.center/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581392157184" />
-    <state width="1087" height="265" key="GridCell.Tab.0.left" timestamp="1581392157184">
+    <state width="1087" height="265" key="GridCell.Tab.0.center/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581393039963" />
+    <state width="1087" height="265" key="GridCell.Tab.0.left" timestamp="1581393039963">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1171" height="265" key="GridCell.Tab.0.left/-1920.0.1920.1050/-1920.1080.1097.617/0.0.1920.1050@0.0.1920.1050" timestamp="1580750354878" />
-    <state width="1087" height="265" key="GridCell.Tab.0.left/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581392157184" />
-    <state width="1087" height="265" key="GridCell.Tab.0.right" timestamp="1581392157184">
+    <state width="1087" height="265" key="GridCell.Tab.0.left/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581393039963" />
+    <state width="1087" height="265" key="GridCell.Tab.0.right" timestamp="1581393039963">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1171" height="265" key="GridCell.Tab.0.right/-1920.0.1920.1050/-1920.1080.1097.617/0.0.1920.1050@0.0.1920.1050" timestamp="1580750354878" />
-    <state width="1087" height="265" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581392157184" />
+    <state width="1087" height="265" key="GridCell.Tab.0.right/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581393039963" />
     <state width="1087" height="331" key="GridCell.Tab.1.bottom" timestamp="1581390859972">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -154,6 +148,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="176" y="184" key="SettingsEditor/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1580824862146" />
+    <state x="968" y="356" key="com.intellij.ide.util.TipDialog" timestamp="1581628209232">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="968" y="356" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581628209232" />
     <state x="639" y="106" key="extract.method.dialog" timestamp="1580919389199">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -170,27 +168,6 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="950" y="220" width="672" height="676" key="search.everywhere.popup/-1920.0.1920.1050/0.0.1920.1050/-1920.1080.1097.617@0.0.1920.1050" timestamp="1581383129557" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/service/EmployeeService.java</url>
-          <line>93</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/service/EmployeeService.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/repositories/EmployeeFileAccess.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/employeeManagement$Main.ic" NAME="Main Coverage Results" MODIFIED="1580827386218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

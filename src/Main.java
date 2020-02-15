@@ -5,7 +5,6 @@ import service.EmployeeService;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -29,7 +28,7 @@ public class Main {
         employeeList.sort(compare);
 
         // service 생성
-        final EmployeeService employeeService = new EmployeeService(scanner, employeeList);
+        final EmployeeService employeeService = new EmployeeService(employeeList);
 
         while (bolRunProgram) {
             System.out.println("====== 직원 정보 관리 (종료 시 파일에 저장됩니다.) ======");
@@ -82,7 +81,6 @@ public class Main {
                     break;
             }
         }
-
         scanner.close();
     }
 }

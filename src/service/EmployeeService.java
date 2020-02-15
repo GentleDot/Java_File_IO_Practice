@@ -16,11 +16,9 @@ import static common.PromptUtil.getInputValueWithCheckRegex;
  * */
 
 public class EmployeeService {
-    private final Scanner scanner;
     private final List<Employee> employeeList;
 
-    public EmployeeService(Scanner scanner, List<Employee> employeeList) {
-        this.scanner = scanner;
+    public EmployeeService(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 

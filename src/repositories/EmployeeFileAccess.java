@@ -4,15 +4,9 @@ import domain.Employee;
 import domain.EmployeeStatus;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class EmployeeFileAccess implements EmployeeRepository {
-    private static final int WRITE_FAILED = 0;
-    private static final int WRITE_SUCCESS = 1;
-
     private final File file;
 
     public EmployeeFileAccess(File file) {
@@ -22,7 +16,7 @@ public class EmployeeFileAccess implements EmployeeRepository {
     @Override
     public List<Employee> readAll() {
         BufferedReader bufferedReader = null;
-        List<Employee> employeeList = new ArrayList<>();
+        ArrayList<Employee> employeeList = new ArrayList<>();
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
             bufferedReader.mark(8192);
@@ -43,6 +37,9 @@ public class EmployeeFileAccess implements EmployeeRepository {
                         .build();
                 employeeList.add(employee);
             });
+
+            Comparator<Employee> compare = Comparator.comparing(Employee::getSeq);
+            employeeList.sort(compare);
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -103,8 +100,7 @@ public class EmployeeFileAccess implements EmployeeRepository {
     }
 
     @Override
-    public int writeAll(List<Employee> employees) {
-        int result = WRITE_FAILED;
+    public void writeAll(List<Employee> employees) {
         BufferedWriter bufferedWriter = null;
         StringBuffer stringBuffer = new StringBuffer();
 
@@ -115,7 +111,6 @@ public class EmployeeFileAccess implements EmployeeRepository {
 
             bufferedWriter.write(stringBuffer.toString());
             bufferedWriter.flush();
-            result = WRITE_SUCCESS;
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println(Arrays.toString(e.getStackTrace()));
@@ -128,13 +123,10 @@ public class EmployeeFileAccess implements EmployeeRepository {
                 System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
-
-        return result;
     }
 
     @Override
-    public int writeOne(Employee employee) {
-        int result = WRITE_FAILED;
+    public void writeOne(Employee employee) {
         BufferedWriter bufferedWriter = null;
 
         try {
@@ -143,7 +135,6 @@ public class EmployeeFileAccess implements EmployeeRepository {
             bufferedWriter.write(employee.toString());
             bufferedWriter.flush();
 
-            result = WRITE_SUCCESS;
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println(Arrays.toString(e.getStackTrace()));
@@ -156,7 +147,5 @@ public class EmployeeFileAccess implements EmployeeRepository {
                 System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
-
-        return result;
     }
 }

@@ -18,12 +18,10 @@ public class Employee {
     }
 
     public Employee(String seq, String name, String phoneNumber, String ranks, String email, EmployeeStatus status) {
-        patternCheck("^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$", phoneNumber, "입력된 전화번호가 올바르지 않습니다.");
-        patternCheck("^[\\d\\w-_.]+@[\\d\\w]+[.][\\w]{2,4}$", email, "입력된 이메일이 올바르지 않습니다.");
-        notNullCheck(name, "이름은 빈 값이 될 수 없습니다.");
-        notNullCheck(phoneNumber, "전화번호는 빈 값이 될 수 없습니다.");
-        notNullCheck(ranks, "직급은 빈 값이 될 수 없습니다.");
-        notNullCheck(email, "이메일은 빈 값이 될 수 없습니다.");
+        notNullCheck(name, "이름은 null이 될 수 없습니다.");
+        notNullCheck(phoneNumber, "전화번호는 null이 될 수 없습니다.");
+        notNullCheck(ranks, "직급은 null이 될 수 없습니다.");
+        notNullCheck(email, "이메일은 null이 될 수 없습니다.");
 
         this.seq = seq;
         this.name = name;

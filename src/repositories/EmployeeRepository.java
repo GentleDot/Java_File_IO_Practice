@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface EmployeeRepository {
     List<Employee> readAll();
     Optional<Employee> readOne(String employeeNo);
-    int writeAll(List<Employee> employees);
-    int writeOne(Employee employee);
+    void writeAll(List<Employee> employees);
+    void writeOne(Employee employee);
 }

@@ -2,10 +2,12 @@ package service;
 
 import domain.Employee;
 import domain.EmployeeStatus;
+import repositories.EmployeeCache;
+import repositories.EmployeeRepository;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Scanner;
 
 import static common.PromptUtil.getInputValue;
 import static common.PromptUtil.getInputValueWithCheckRegex;
@@ -16,20 +18,26 @@ import static common.PromptUtil.getInputValueWithCheckRegex;
  * */
 
 public class EmployeeService {
-    private final List<Employee> employeeList;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeCache employeeCache;
 
-    public EmployeeService(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+        employeeCache = new EmployeeCache(employeeRepository);
     }
 
-    public void insertEmployee(String employeeNo) {
+    public void insertEmployee() {
+        int employeesCount = employeeCache.getManagedEmployees().size();
+        String employeeNo = String.format("%03d", employeesCount);
         Optional<Employee> newEmployee = getEmployeeFromInput(employeeNo);
 
         if (newEmployee.isEmpty()) {
             System.out.println("입력 작업이 취소되었습니다.");
             return;
         }
-        employeeList.add(newEmployee.get());
+
+        employeeRepository.writeOne(newEmployee.get());
+        employeeCache.clearCache();
         System.out.println("직원 정보 입력 완료!");
     }
 
@@ -37,7 +45,7 @@ public class EmployeeService {
         System.out.println("직원번호        이름");
         System.out.println("====================");
 
-        employeeList.forEach(employee -> {
+        employeeCache.getManagedEmployees().values().forEach(employee -> {
             if (employee.getStatus().equals(EmployeeStatus.MEMBER)) {
                 System.out.println(new StringBuffer()
                         .append(employee.getSeq())
@@ -52,7 +60,7 @@ public class EmployeeService {
         System.out.println("직원번호        이름            전화번호            직급            이메일");
         System.out.println("==========================================================================");
 
-        employeeList.forEach(employee -> {
+        employeeCache.getManagedEmployees().values().forEach(employee -> {
             if (employee.getStatus().equals(EmployeeStatus.MEMBER)) {
                 System.out.println(new StringBuffer()
                         .append(employee.getSeq())
@@ -70,32 +78,51 @@ public class EmployeeService {
     }
 
     public void updateEmployee(String employeeNo) {
-        int index = employeeList.indexOf(new Employee(employeeNo));
-        if (index >= 0) {
-            if (employeeList.get(index).getStatus() != EmployeeStatus.MEMBER) {
+        Map<String, Employee> managedEmployees = employeeCache.getManagedEmployees();
+        if (managedEmployees.containsKey(employeeNo)) {
+            Employee getEmployee = managedEmployees.get(employeeNo);
+            if (getEmployee.getStatus() != EmployeeStatus.MEMBER) {
                 return;
             }
 
             Optional<Employee> employeeFromInput = getEmployeeFromInput(employeeNo);
             if (employeeFromInput.isEmpty()) {
+                System.out.println("직원 정보 수정 작업을 취소하였습니다.");
                 return;
             }
 
-            employeeList.set(index, employeeFromInput.get());
+            Employee updatedEmployee = new Employee.Builder(getEmployee)
+                    .name(employeeFromInput.get().getName().isBlank() ?
+                            getEmployee.getName() : employeeFromInput.get().getName())
+                    .phoneNumber(employeeFromInput.get().getPhoneNumber().isBlank() ?
+                            getEmployee.getPhoneNumber() : employeeFromInput.get().getPhoneNumber())
+                    .ranks(employeeFromInput.get().getRanks().isBlank() ?
+                            getEmployee.getRanks() : employeeFromInput.get().getRanks())
+                    .email(employeeFromInput.get().getEmail().isBlank() ?
+                            getEmployee.getEmail() : employeeFromInput.get().getEmail())
+                    .build();
+
+            managedEmployees.put(employeeNo, updatedEmployee);
+
+            employeeRepository.writeAll(new ArrayList<>(managedEmployees.values()));
+            employeeCache.clearCache();
             System.out.println("직원 정보 수정 완료!");
         }
     }
 
     public void deleteEmployee(String employeeNo) {
-        int index = employeeList.indexOf(new Employee(employeeNo));
-        if (index >= 0) {
-            Employee employee = employeeList.get(index);
-            if (employee.getStatus() != EmployeeStatus.MEMBER) {
+        Map<String, Employee> managedEmployees = employeeCache.getManagedEmployees();
+        if (managedEmployees.containsKey(employeeNo)) {
+            Employee getEmployee = managedEmployees.get(employeeNo);
+            if (getEmployee.getStatus() != EmployeeStatus.MEMBER) {
                 return;
             }
-            employee.setStatus(EmployeeStatus.TERMINATED);
-            employeeList.set(index, employee);
 
+            getEmployee.setStatus(EmployeeStatus.TERMINATED);
+            managedEmployees.put(employeeNo, getEmployee);
+
+            employeeRepository.writeAll(new ArrayList<>(managedEmployees.values()));
+            employeeCache.clearCache();
             System.out.println("직원 정보 삭제 완료!");
         }
     }

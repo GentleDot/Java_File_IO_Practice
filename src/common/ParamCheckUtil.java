@@ -10,8 +10,8 @@ public class ParamCheckUtil {
         }
     }
 
-    public static void notNullCheck(String target, String exceptionMessage) {
-        if (target.isEmpty() || target.isBlank() || target == null){
+    public static void notNullCheck(Object target, String exceptionMessage) {
+        if (target == null) {
             throw new IllegalArgumentException(exceptionMessage);
         }
     }
